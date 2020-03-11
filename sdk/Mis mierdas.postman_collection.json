@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "9f3b6278-f5b9-4472-8b05-9b6f48ecac12",
+		"name": "Mis mierdas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "items",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"item\": \"Pepinillos\",\n\t\"status\": 0\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/items",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ed2534b-ddac-4963-bc45-5f077bc529db",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"item_id\", jsonData.response[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "items/<item_id>",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/items/{{item_id}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"items",
+						"{{item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "items/<item_id>",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"item\": \"item updated\",\n\t\"status\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/items/{{item_id}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"items",
+						"{{item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trivia/categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68f57713-7898-4281-9f57-0fdf3049d5de",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"category_id\", jsonData.trivia_categories[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{HOST}}/trivia/categories",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"trivia",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trivia",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/trivia?amount=1&category={{category_id}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"trivia"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "1"
+						},
+						{
+							"key": "category",
+							"value": "{{category_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
