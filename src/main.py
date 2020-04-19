@@ -3,6 +3,7 @@ import requests
 from bottle import run, post, get, request, Bottle, route, redirect
 from bson.objectid import ObjectId
 from src.database import Database
+from src.tictactoe import Game
 
 
 app = Bottle()
@@ -76,6 +77,7 @@ trivia_session_token = requests.get(
 def get_token():
     return trivia_session_token
 
+
 def set_token(token):
     trivia_session_token = token
     return
@@ -114,6 +116,27 @@ def trivia_game():
 def trivia_game_categories():
     response = requests.get('https://opentdb.com/api_category.php')
     return response.json()
+
+
+# -----------------------------------------------------
+
+
+# TODO: only one game instance?!?!
+game = Game()
+
+
+@app.get('/tictactoe/start')
+def trivia_game_categories():
+    game.start()
+
+
+@app.get('/tictactoe/move')
+def trivia_game_categories():
+    compute_response = game.compute(int(request.query.position))
+    return dict(response=compute_response)
+
+
+# -----------------------------------------------------
 
 
 if __name__ == '__main__':
