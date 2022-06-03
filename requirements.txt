@@ -1,5 +1,5 @@
 attrs==19.3.0
-bottle==0.12.18
+bottle==0.12.20
 bottle-swagger-2==2.0.9
 bravado-core==5.16.1
 certifi==2019.11.28
